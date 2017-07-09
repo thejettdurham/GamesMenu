@@ -4,11 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-
-import {
-    View,
-    Text
-} from 'react-native';
+import { View,Text } from 'react-native';
 
 class AppContainer extends Component {
 
