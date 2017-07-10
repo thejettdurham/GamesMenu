@@ -11,3 +11,4 @@ export const SET_MODIFIER = 'SET_MODIFIER';
 export const ITEM_NAV_BACK = 'ITEM_NAV_BACK';
 export const ITEM_NAV_FWD = 'ITEM_NAV_FWD';
 export const UNDO_LAST_MOD = 'UNDO_LAST_MOD';
+

@@ -4,10 +4,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { View,Text, StyleSheet } from 'react-native';
-import GroupContainer from './GroupContainer';
-import ItemContainer from './ItemContainer';
-import SelectionContainer from './SelectionContainer';
+import { View,Text, StyleSheet } from 'react-native'
+import GroupContainer from './GroupContainer'
+import ItemContainer from './ItemContainer'
+import SelectionContainer from './SelectionContainer'
+import NavContainer from './NavContainer'
 
 class AppContainer extends Component {
 
@@ -21,8 +22,11 @@ class AppContainer extends Component {
                   <View style={styles.rightTopPane}>
                       <GroupContainer />
                   </View>
-                  <View style={styles.rightBottomPane}>
+                  <View style={styles.rightMiddlePane}>
                       <ItemContainer />
+                  </View>
+                  <View style={styles.rightBottomPane}>
+                      <NavContainer />
                   </View>
               </View>
           </View>
@@ -51,8 +55,11 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         padding: 10,
     },
-    rightBottomPane: {
+    rightMiddlePane: {
         flex: 2.5,
+        padding: 10,
+    },
+    rightBottomPane: {
         padding: 10,
     }
 });
