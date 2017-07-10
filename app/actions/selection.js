@@ -1,10 +1,12 @@
 // @flow
 
 import * as types from './types';
+import Selection from '../lib/appState';
 
-export function confirmSelection() {
+export function confirmSelection(selection: Selection) {
     return {
         type: types.CONFIRM_SELECTION,
+        selection: selection,
     };
 }
 
