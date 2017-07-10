@@ -1,0 +1,19 @@
+- Force Landscape Orientation
+- Redux for state management (copy app structure from peckish app)
+- React Navigation for Items - ModGrp - ModItems  sub screen
+    - Initial try before fully implementing state: Got it to render as a sub-component, but it seems at cursory glance that it's only possible to have a stylizable navigator by implementing a fully customized one. For this reason, I think react-navigation is overkill for my use-case, and I think the relatively simple functionality required for this app can be handled with redux directly.
+- App State:
+    - SelectionContainer
+        - ConfirmedSelections? (array of selections, shape of which defined below)
+        - ActiveSelection?
+            - groupId: number
+            - itemId: number
+            - modifiers: array<number>
+    - GroupContainer
+        - SelectedGroup?
+    - ItemContainer
+        - ActiveScreenId?
+    - NavContainer
+        - ButtonIsEnabled
+            - undo: bool
+            - accept: bool

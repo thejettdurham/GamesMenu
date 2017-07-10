@@ -19,4 +19,3 @@ export function undo() {
         type: types.UNDO_LAST_MOD
     }
 }
-

@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     rightBottomPane: {
+        flex: 0.5,
         padding: 10,
     }
 });
