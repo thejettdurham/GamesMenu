@@ -4,15 +4,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { View,Text, StyleSheet } from 'react-native'
+import { View,Text,StyleSheet } from 'react-native'
+
 import GroupContainer from './GroupContainer'
 import ItemContainer from './ItemContainer'
 import SelectionContainer from './SelectionContainer'
 import NavContainer from './NavContainer'
 
 class AppContainer extends Component {
-
-  render() {
+    render() {
       return (
           <View style={styles.root}>
               <View style={styles.leftPane}>
@@ -31,7 +31,7 @@ class AppContainer extends Component {
               </View>
           </View>
       );
-  }
+    }
 }
 
 const styles = StyleSheet.create({
