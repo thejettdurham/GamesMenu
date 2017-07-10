@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
 import { View,Text } from 'react-native';
 
-class SelectionContainer extends Component {
+export default class SelectionContainer extends Component {
     render() {
         return(
             <View>

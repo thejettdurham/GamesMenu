@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
 import { View,Text } from 'react-native';
 
-class GroupContainer extends Component {
+export default class GroupContainer extends Component {
     render() {
         return(
             <View>

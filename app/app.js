@@ -21,18 +21,24 @@ function configureStore(initialState) {
     return createStore(reducers, initialState, enhancer);
 }
 
-const store = configureStore({});
-
-
 export default class App extends Component {
+    store: any;
+
+    componentWillMount() {
+        // TODO Map game data to initial state
+
+        let initialState = {};
+        this.store = configureStore(initialState);
+    }
+
     componentDidMount() {
-        // this locks the view to Portrait Mode
+        // this locks the view to Landscape Mode
         Orientation.lockToLandscapeLeft();
     }
 
     render() {
         return(
-            <Provider store={store}>
+            <Provider store={this.store}>
                 <AppContainer />
             </Provider>
         );
