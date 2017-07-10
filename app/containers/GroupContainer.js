@@ -10,7 +10,7 @@ export default class GroupContainer extends Component {
     render() {
         return(
             <View>
-                <Text>Group Container!</Text>
+                <Text>Select A Group</Text>
             </View>
         );
     }

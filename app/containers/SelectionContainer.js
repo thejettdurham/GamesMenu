@@ -10,7 +10,7 @@ export default class SelectionContainer extends Component {
     render() {
         return(
             <View>
-                <Text>Selection Container!</Text>
+                <Text>Selections</Text>
             </View>
         );
     }

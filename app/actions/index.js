@@ -1,8 +1,12 @@
 // @flow
 
-import * as AppActions from './app'
+import * as SelectionActions from './selection'
+import * as GroupItemActions from './groupItem'
+import * as NavActions from './nav'
 
 // Aggregate all actions from imports
 export const ActionCreators = Object.assign({},
-  AppActions,
+    SelectionActions,
+    GroupItemActions,
+    NavActions,
 );
