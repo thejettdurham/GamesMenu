@@ -30,7 +30,13 @@ export default appStateReducer = (state, action) => {
             // Set selected group id by given
             // Initialize ActiveSelection with groupId
             // Set ActiveScreenId = groupId (screen rendered from children of Id)
-            return state;
+            let updated = Object.assign({}, state, {
+                GroupContainer: {
+                    SelectedGroupId: action.groupId
+                }
+            });
+
+            return updated;
         }
         case types.SET_ITEM: {
             // Add chosen ItemId to ActiveSelection
@@ -49,6 +55,7 @@ export default appStateReducer = (state, action) => {
             return state;
         }
         case types.UNDO_LAST_MOD: {
+            // TODO need to use redux-undo's undo action creator here
             return state.past;
         }
         default: return state;

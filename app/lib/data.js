@@ -68,49 +68,49 @@ export default {
                   }
                ]
             },
+          ]
+      },
+      {
+         "id":102,
+         "checkDesc":"Miniature Games",
+         "basePrice":0,
+         "modifierType":"NONE",
+         "salesMode":"BUTTON_ONLY",
+         "childMenuItems":[
             {
-               "id":102,
-               "checkDesc":"Miniature Games",
-               "basePrice":0,
+               "id":203,
+               "checkDesc":"X-Wing Core",
+               "basePrice":39.99,
                "modifierType":"NONE",
-               "salesMode":"BUTTON_ONLY",
+               "salesMode":"NORMAL"
+            },
+            {
+               "id":204,
+               "checkDesc":"Warhammer 40K",
+               "basePrice":139.99,
+               "modifierType":"NONE",
+               "salesMode":"NORMAL",
                "childMenuItems":[
                   {
-                     "id":203,
-                     "checkDesc":"X-Wing Core",
-                     "basePrice":39.99,
-                     "modifierType":"NONE",
-                     "salesMode":"NORMAL"
-                  },
-                  {
-                     "id":204,
-                     "checkDesc":"Warhammer 40K",
-                     "basePrice":139.99,
-                     "modifierType":"NONE",
-                     "salesMode":"NORMAL",
+                     "id":303,
+                     "checkDesc":"Warhammer 40K Mod",
+                     "basePrice":0,
+                     "modifierType":"OPTIONAL",
+                     "salesMode":"MODIFIER_GROUP",
                      "childMenuItems":[
                         {
-                           "id":303,
-                           "checkDesc":"Warhammer 40K Mod",
-                           "basePrice":0,
-                           "modifierType":"OPTIONAL",
-                           "salesMode":"MODIFIER_GROUP",
-                           "childMenuItems":[
-                              {
-                                 "id":405,
-                                 "checkDesc":"Marbel Dice",
-                                 "basePrice":0.00,
-                                 "modifierType":"TERMINAL",
-                                 "salesMode":"MODIFIER"
-                              },
-                              {
-                                 "id":406,
-                                 "checkDesc":"Measuring Tape",
-                                 "basePrice":0.00,
-                                 "modifierType":"TERMINAL",
-                                 "salesMode":"MODIFIER"
-                              }
-                           ]
+                           "id":405,
+                           "checkDesc":"Marbel Dice",
+                           "basePrice":0.00,
+                           "modifierType":"TERMINAL",
+                           "salesMode":"MODIFIER"
+                        },
+                        {
+                           "id":406,
+                           "checkDesc":"Measuring Tape",
+                           "basePrice":0.00,
+                           "modifierType":"TERMINAL",
+                           "salesMode":"MODIFIER"
                         }
                      ]
                   }

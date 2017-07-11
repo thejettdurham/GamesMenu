@@ -6,18 +6,11 @@ import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
 import { View, StyleSheet, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Branding from '../branding';
 
 const buttonColors = {
-    disabled: {
-        background: "rgba(0,0,0,0)",
-        foreground:"#aaa",
-        underlay: "rgba(0,0,0,0)",
-    },
-    enabled: {
-        background: "#aec8d8",
-        foreground:"#226099",
-        underlay: "#cde1ea",
-    },
+    disabled: Branding.buttons.disabled,
+    enabled: Branding.buttons.alpha,
 };
 
 function mapDispatchToProps(dispatch) {
