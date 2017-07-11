@@ -1,16 +1,30 @@
 // @flow
 
 import data from './data'
+import _ from 'lodash'
 
 class Selection {
     GroupId: number;
     ItemId: number;
     Modifiers: Array<number>;
+
+    constructor() {
+        this.GroupId = 0;
+        this.ItemId = 0;
+        this.Modifiers = [];
+    }
 }
 
 class MappedData {
     rawById: any;
+    groupIds: any;
     childrenById: any;
+
+    constructor() {
+        this.rawById = {};
+        this.groupIds = [];
+        this.childrenById = {};
+    }
 }
 
 export default class AppState {
@@ -48,30 +62,35 @@ export default class AppState {
     }
 }
 
+// Maps the raw input data into a more usable structure for building and managing the app UI.
 function mapInputDataToState(data: any): MappedData {
-    console.log(data);
-    // TODO Implement input data to state mapping
-    // map data:
-    // raw lookup by id
-    // groups: [101, 102]
-    // children by id
-    /*
-        children = {
-            101: [201,202],
-            102: [203,204],
-            201: [301],
-            202: [302],
-            203: [],
-            204: [303],
-            301: [401],
-            302: [402],
-            303: [405,406],
-            401: [],
-            402: [],
-            403: [],
-            405: [],
-            406: [],
+    let mapped = new MappedData();
+
+    let rawMapper = (obj: any) => {
+        // Aggregate the groupIds for the GroupContainer
+        if (obj.salesMode === "BUTTON_ONLY") mapped.groupIds.push(obj.id);
+
+        if (obj.hasOwnProperty('childMenuItems')) {
+            let children = obj.childMenuItems;
+
+            // removing the child items keeps the rawItem map lightweight
+            obj = _.omit(obj, 'childMenuItems');
+            mapped.childrenById[obj.id] = [];
+
+            children.forEach((child) => {
+                // Aggregate the child node ids into a hashmap by parent id for easy scaffolding of the items for a given parent
+                mapped.childrenById[obj.id].push(child.id);
+
+                // Of course, run this function again recursively for each child.
+                rawMapper(child);
+            })
         }
-     */
-    return new MappedData();
+
+        // Aggregate the raw button objects into a hashmap by id for easy lookup in the app
+        mapped.rawById[obj.id] = obj;
+    };
+
+    data.menuItems.forEach(x => rawMapper(x));
+
+    return mapped;
 }

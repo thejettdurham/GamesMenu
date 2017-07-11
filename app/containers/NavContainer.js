@@ -65,10 +65,6 @@ class ItemContainer extends Component {
         this.props.confirmSelection();
     }
 
-    componentDidMount() {
-        console.log(this.props);
-    }
-
     constructor(props) {
         super(props);
 
