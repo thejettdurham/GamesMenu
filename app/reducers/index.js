@@ -29,19 +29,27 @@ export default appStateReducer = (state, action) => {
 
             // Set selected group id by given
             // Initialize ActiveSelection with groupId
-            //
+            // Set ActiveScreenId = groupId (screen rendered from children of Id)
             return state;
         }
         case types.SET_ITEM: {
+            // Add chosen ItemId to ActiveSelection
+            // Set LastScreenId = ActiveScreenId
+            // If item has children, set ActiveScreen to ItemId
             return state;
         }
         case types.SET_MODIFIER_GROUP: {
+            // If item has children, set ActiveScreen to ModGroupId
             return state;
         }
         case types.SET_MODIFIER: {
+            // Append modifierId to modifiers array of active selection
+            // Set ActiveScreenId = LastScreenId
+            // Set LastScreenId = ActiveScreenId
             return state;
         }
         case types.UNDO_LAST_MOD: {
+            // return previous state
             return state;
         }
         default: return state;
