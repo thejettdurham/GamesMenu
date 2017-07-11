@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"test": "jest",
+		"postinstall": "rm node_modules/redux-undo/.babelrc"
 	},
 	"dependencies": {
 		"react": "^16.0.0-alpha.13",
@@ -13,7 +14,8 @@
 		"react-native-vector-icons": "^4.2.0",
 		"react-redux": "^5.0.5",
 		"redux": "^3.7.1",
-		"redux-logger": "^3.0.6"
+		"redux-logger": "^3.0.6",
+		"redux-undo": "^1.0.0-beta9-9-5"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",

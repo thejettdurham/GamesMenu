@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        ButtonIsEnabled: state.NavContainer.ButtonIsEnabled,
+        ButtonIsEnabled: state.present.NavContainer.ButtonIsEnabled,
     };
 }
 
@@ -95,7 +95,6 @@ class ItemContainer extends Component {
                         style={[styles.navButtonBase, this.navButtonDynamicStyle('Accept')]}
                         onPress={this.acceptPress.bind(this)}
                         underlayColor={this.navUnderlayDynamicStyle('Accept')}
-                        onHideUnderlay={() => console.log("Accept underlay hidden")}
                     >
                         <Icon style={[styles.navIconBase, this.navIconDynamicStyle('Accept')]} name="check" />
                     </TouchableHighlight>

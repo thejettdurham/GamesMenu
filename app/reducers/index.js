@@ -49,8 +49,7 @@ export default appStateReducer = (state, action) => {
             return state;
         }
         case types.UNDO_LAST_MOD: {
-            // return previous state
-            return state;
+            return state.past;
         }
         default: return state;
     }
