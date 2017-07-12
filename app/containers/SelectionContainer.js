@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, ScrollView, Alert } from 'react-native';
 import Branding from '../branding';
+import {Selection} from "../lib/appState";
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch)
@@ -20,34 +21,84 @@ function mapStateToProps(state) {
 }
 
 class SelectionContainer extends Component {
+    renderSelectionText = (selection: Selection)  => {
+        let selectionGroup = selection.GroupId !== undefined ? this.props.Data.rawById[selection.GroupId] : undefined;
+        let selectionItem = selection.ItemId !== undefined ? this.props.Data.rawById[selection.ItemId] : undefined;
+
+        // Transform modifiersId array into an array of modifier objects from the data
+        let selectionModifiers = selection.Modifiers !== undefined
+            ? selection.Modifiers.reduce((agg, id) => agg.concat(this.props.Data.rawById[id]), [])
+            : undefined;
+
+        if (selectionGroup === undefined || selectionItem === undefined) return null;
+
+        let totalPrice = selectionItem.basePrice;
+
+        if (selectionModifiers !== undefined) {
+            // Add basePrice of each modifier to the total price started earlier
+            totalPrice = selectionModifiers.reduce((sum, mod) => sum + mod.basePrice, selectionItem.basePrice);
+        }
+
+        return (
+            <View>
+                <Text style={{fontWeight: 'bold'}}>{selectionGroup.checkDesc}</Text>
+                <Text>{selectionItem.checkDesc} - ${selectionItem.basePrice}</Text>
+                {selectionModifiers !== undefined
+                    ? selectionModifiers.map((mod, idx) => {
+                        return (<Text key={idx}>  {mod.checkDesc}{mod.basePrice > 0 ? " - $" + mod.basePrice : ""}</Text>);
+                    })
+                    : null
+                }
+                <Text style={{fontStyle: 'italic'}}>Total Price - ${totalPrice}</Text>
+            </View>
+        );
+    };
+
+    deleteSelection = (index: number): any => {
+        console.log(`Delete requested for selection ${index}`);
+
+        let selectionInfo = this.props.ConfirmedSelections[index];
+        let selectedGroupInfo = this.props.Data.rawById[selectionInfo.GroupId];
+        let selectedItemInfo = this.props.Data.rawById[selectionInfo.ItemId];
+        
+        Alert.alert(
+            'Warning',
+            `Delete selection for ${selectedGroupInfo.checkDesc} - ${selectedItemInfo.checkDesc}?`,
+            [
+                {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+                {text: 'OK', onPress: () => this.props.deleteSelectionAtIndex(index)},
+            ],
+            { cancelable: false }
+        );
+    };
+
     render() {
         console.log("Render SelectionContainer");
         return(
-            <ScrollView style={styles.containerWrap}>
+            <View style={styles.containerWrap}>
                 <Text style={styles.titleHeader}>Selections</Text>
-                <View style={styles.confirmedSelectionsWrap}>{
+                <View style={styles.activeSelectionWrap}>{
+                    this.props.ActiveSelection !== undefined && this.props.ActiveSelection.ItemId !== 0
+                        ? this.renderSelectionText(this.props.ActiveSelection)
+                        : null
+                }</View>
+                <ScrollView style={styles.confirmedSelectionsWrap}>{
                     this.props.ConfirmedSelections !== undefined && this.props.ConfirmedSelections.length > 0
                         ? this.props.ConfirmedSelections.map((sel, idx) => {
                             return(
                                 <TouchableHighlight
                                     key={idx}
                                     style={styles.confirmedSelection}
-                                    underlayColor='#eee'
-                                    onPress={() => console.log(`Pushed selection ${idx}`)}
+                                    underlayColor='rgba(168, 46, 46, 0.3)'
+                                    onLongPress={() => this.deleteSelection(idx)}
                                 >
-                                    <Text>{JSON.stringify(sel)}</Text>
+                                    {this.renderSelectionText(sel)}
                                 </TouchableHighlight>
                             );
                         })
                         : null
-                }</View>
-                <View style={styles.activeSelectionWrap}>{
-                    this.props.ActiveSelection !== undefined && this.props.ActiveSelection.ItemId !== 0
-                        // TODO proper rendering
-                        ? <Text>{JSON.stringify(this.props.ActiveSelection)}</Text>
-                        : null
-                }</View>
-            </ScrollView>
+                }</ScrollView>
+            </View>
         );
     }
 }
@@ -57,18 +108,24 @@ const styles = StyleSheet.create({
         flex: 1
     },
     titleHeader: Branding.headers[0],
+    activeSelectionWrap: {
+        minHeight: 60,
+        paddingVertical: 10,
+        marginVertical: 8,
+        borderTopWidth: 1,
+        borderTopColor: Branding.borders.light,
+        borderBottomWidth: 1,
+        borderBottomColor: Branding.borders.light,
+    },
     confirmedSelectionsWrap: {
-
+        paddingTop: 5
     },
     confirmedSelection: {
-
+        borderWidth: 0.5,
+        borderColor: Branding.borders.dark,
+        padding: 10,
+        marginVertical: 5,
     },
-    activeSelectionWrap: {
-
-    },
-    activeSelection: {
-
-    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectionContainer);

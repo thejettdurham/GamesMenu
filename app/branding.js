@@ -55,6 +55,7 @@ export default {
     },
     borders: {
         dark: foregrounds.dark,
+        light: foregrounds.disabled,
     },
     headers: [
         {

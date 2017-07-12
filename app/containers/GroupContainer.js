@@ -68,9 +68,7 @@ class GroupContainer extends Component {
                 'Selecting a new group will erase your unsaved selection. Ok to proceed?',
                 [
                     {text: 'Cancel', onPress: () => {}, style: 'cancel'},
-                    {text: 'OK', onPress: (() => {
-                        this.props.setSelectedGroup(groupId)
-                    }).bind(this)},
+                    {text: 'OK', onPress: () => this.props.setSelectedGroup(groupId)},
                 ],
                 { cancelable: false }
             );
@@ -80,15 +78,6 @@ class GroupContainer extends Component {
 
         this.props.setSelectedGroup(groupId);
     };
-
-
-
-    constructor(props) {
-        super(props);
-
-        this.groupButtonPress = this.groupButtonPress.bind(this);
-        this.dynamicStyler = this.dynamicStyler.bind(this);
-    }
 
     render() {
         console.log("Render GroupContainer");
@@ -128,11 +117,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-around',
     },
     groupButtonWrap: {
         backgroundColor: buttonColors.unselected.background,
         padding: 10,
+        marginRight: 30,
     },
     groupButtonText: {
         color: buttonColors.unselected.foreground,

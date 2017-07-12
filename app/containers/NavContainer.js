@@ -20,24 +20,36 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     return {
         ButtonIsEnabled: state.present.NavContainer.ButtonIsEnabled,
+        NumPastStates: state.past.length,
     };
 }
 
 class ItemContainer extends Component {
+    buttonIsEnabled = (buttonType: string): bool => {
+        switch (buttonType) {
+            case "Undo":
+                return this.props.NumPastStates > 0 && this.props.ButtonIsEnabled[buttonType];
+            case "Accept":
+                return this.props.ButtonIsEnabled[buttonType];
+            default:
+                return false;
+        }
+    };
+
     navButtonDynamicStyle = (buttonType: string): any => {
         return {
-            backgroundColor: this.props.ButtonIsEnabled[buttonType] ? buttonColors.enabled.background : buttonColors.disabled.background,
+            backgroundColor: this.buttonIsEnabled(buttonType) ? buttonColors.enabled.background : buttonColors.disabled.background,
         }
     };
 
     navIconDynamicStyle = (buttonType: string): any => {
         return {
-            color: this.props.ButtonIsEnabled[buttonType] ? buttonColors.enabled.foreground : buttonColors.disabled.foreground,
+            color: this.buttonIsEnabled(buttonType) ? buttonColors.enabled.foreground : buttonColors.disabled.foreground,
         }
     };
 
     navUnderlayDynamicStyle = (buttonType: string): any => {
-        return this.props.ButtonIsEnabled[buttonType] ? buttonColors.enabled.underlay : buttonColors.disabled.underlay;
+        return this.buttonIsEnabled(buttonType) ? buttonColors.enabled.underlay : buttonColors.disabled.underlay;
     };
 
     undoPress() {

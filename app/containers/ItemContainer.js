@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { View, Text, TouchableHighlight, StyleSheet, ScrollView } from 'react-native';
 import Branding from '../branding';
 
 const buttonColors = {
@@ -103,6 +103,9 @@ class ItemContainer extends Component {
                 <View style={styles.buttonField}>{
                     buttonIds !== undefined
                     ? buttonIds.map((btnId) => {
+                            let buttonInfo = this.props.Data.rawById[btnId];
+                            let buttonText = buttonInfo.checkDesc + (buttonInfo.basePrice > 0 ? ` \$${buttonInfo.basePrice}` : '');
+
                             return (
                                 <TouchableHighlight
                                     key={btnId}
@@ -111,7 +114,7 @@ class ItemContainer extends Component {
                                     onPress={() => this.buttonPress(btnId)}
                                 >
                                     <Text style={[styles.itemButtonText, this.dynamicStyler('itemButtonText', btnId)]}>
-                                        {this.props.Data.rawById[btnId].checkDesc}
+                                        {buttonText}
                                     </Text>
                                 </TouchableHighlight>
                             );
@@ -133,11 +136,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'flex-start',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        paddingRight: 30,
     },
     itemButtonWrap: {
         backgroundColor: buttonColors.item.background,
         padding: 10,
+        marginRight: 30,
     },
     itemButtonText: {
         color: buttonColors.item.foreground,

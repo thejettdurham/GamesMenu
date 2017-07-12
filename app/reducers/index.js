@@ -12,8 +12,8 @@ export default appStateReducer = (state, action) => {
 
             if (lastConfirmedSelections !== undefined && lastConfirmedSelections.length > 0) {
                 newConfirmedSelections= [
-                    ...state.SelectionContainer.ConfirmedSelections,
                     state.SelectionContainer.ActiveSelection,
+                    ...state.SelectionContainer.ConfirmedSelections,
                 ]
             } else {
                 newConfirmedSelections = [state.SelectionContainer.ActiveSelection];
@@ -44,7 +44,7 @@ export default appStateReducer = (state, action) => {
             return Object.assign({}, state, {
                 SelectionContainer: {
                     ConfirmedSelections: filteredSelections,
-                    ActiveSelection: state.ActiveSelection,
+                    ActiveSelection: state.SelectionContainer.ActiveSelection,
                 }
             });
         }
