@@ -3,14 +3,25 @@ import { Alert } from 'react-native';
 import * as types from '../actions/types';
 
 export default appStateReducer = (state, action) => {
+    console.log("Reducer entry");
+
     switch (action.type) {
         case types.CONFIRM_SELECTION: {
+            let newConfirmedSelections = [];
+            let lastConfirmedSelections = state.SelectionContainer.ConfirmedSelections;
+
+            if (lastConfirmedSelections !== undefined && lastConfirmedSelections.length > 0) {
+                newConfirmedSelections= [
+                    ...state.SelectionContainer.ConfirmedSelections,
+                    state.SelectionContainer.ActiveSelection,
+                ]
+            } else {
+                newConfirmedSelections = [state.SelectionContainer.ActiveSelection];
+            }
+
             return Object.assign({}, state, {
                 SelectionContainer: {
-                    ConfirmedSelections: [
-                        ...state.SelectionContainer.ConfirmedSelections,
-                        state.SelectionContainer.ActiveSelection,
-                    ],
+                    ConfirmedSelections: newConfirmedSelections,
                 },
                 GroupContainer: {
                     
@@ -40,29 +51,11 @@ export default appStateReducer = (state, action) => {
 
         case types.SET_SELECTED_GROUP: {
             // View logic ensures that old groupId !== action.groupId
-            if (state.GroupContainer.SelectedGroupId === action.groupId) return state;
-
-            let activeSelection = state.SelectionContainer.ActiveSelection;
-            if (activeSelection !== undefined && activeSelection.ItemId !== 0) {
-                let proceedWithChange = false;
-                Alert.alert(
-                    'Warning',
-                    'Selecting a new group will erase your unsaved selection. Ok to proceed?',
-                    [
-                        {text: 'Cancel', onPress: () => proceedWithChange = false, style: 'cancel'},
-                        {text: 'OK', onPress: () => proceedWithChange = true},
-                    ],
-                    { cancelable: false }
-                );
-
-                if (!proceedWithChange) return state;
-            }
-
-            let newSelection = new Selection(action.GroupId);
+            let newSelection = new Selection(action.groupId);
 
             return Object.assign({}, state, {
                 SelectionContainer: {
-                    ConfirmedSelections: state.ConfirmedSelections,
+                    ConfirmedSelections: state.SelectionContainer.ConfirmedSelections,
                     ActiveSelection: newSelection,
                 },
                 GroupContainer: {
@@ -121,7 +114,7 @@ export default appStateReducer = (state, action) => {
                 ItemContainer: {
                     LastScreenId: state.ItemContainer.ActiveScreenId,
                     // Items with no modifiers are handled in the view layer
-                    ActiveScreenId: action.modId,
+                    ActiveScreenId: state.ItemContainer.LastScreenId,
                 }
             });
 

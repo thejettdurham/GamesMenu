@@ -6,6 +6,22 @@ This is a record of my communications and thoughts through implementing the chal
 
 Create a single screen divided into left and right sections. On the left, display a list of selected items (will be empty at first). On the right, display the menu. When a menu item is selected, show it in the list on the left along with its modifiers. The menu structure is broken up into 3 sections: Groups, Items, Modifiers. When a group is selected, show its items below. When an item is selected, replace item selection with modifier selection, but leave groups visible.
 
+Attached is JSON data that contains some games. The following business rules apply:
+
+```
+·         checkDesc - what to show on the left side
+·         basePrice - if greater than 0, display price
+·         modifierType: 
+o    OPTIONAL means these are optional things that can be added to the parent item.
+o    NONE means nothing.
+·         salesMode: 
+o    BUTTON_ONLY means it is basically a “group” and is not an item that gets added to the left. Its children might.
+o    NORMAL means show on left when clicked.
+o    MODIFIER_GROUP means it is a group of things that can “modify” it’s parent. For example, Dark Souls can come with Painted Miniatures.
+o    TERMINAL means there are no children, but should be added to item list with its parent item..
+``` 
+
+
 ## Requirement Clarification
 
 `Can a selected item have more than one modifier? My naive assumption is to say yes.`

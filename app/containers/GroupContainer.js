@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
+import { Alert, StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import Branding from '../branding';
 
 const buttonColors = {
@@ -20,38 +20,27 @@ function mapStateToProps(state) {
     return {
         Data: state.present.Data,
         SelectedGroupId: state.present.GroupContainer.SelectedGroupId,
+        ActiveSelection: state.present.SelectionContainer.ActiveSelection,
     }
 }
 
 class GroupContainer extends Component {
     state: any;
 
-    dynamicStyler = (componentType: string, groupId?: number): any => {
+    dynamicStyler = (componentType: string, groupId: number): any => {
         switch(componentType) {
             case "groupButtonWrap": {
-                if (groupId === undefined) {
-                    throw 'GroupContainer dynamic styler called without required groupId';
-                }
-
                 let bgColor = (this.props.SelectedGroupId === groupId)
                     ? buttonColors.selected.background : buttonColors.unselected.background;
 
                 return { backgroundColor: bgColor };
             }
             case "groupButtonWrap.underlay": {
-                if (groupId === undefined) {
-                    throw 'GroupContainer dynamic styler called without required groupId';
-                }
-
                 if (this.props.SelectedGroupId === groupId) return buttonColors.selected.underlay;
 
                 return buttonColors.unselected.underlay;
             }
             case "groupButtonText": {
-                if (groupId === undefined) {
-                    throw 'GroupContainer dynamic styler called without required groupId';
-                }
-
                 let fgColor = (this.props.SelectedGroupId === groupId)
                     ? buttonColors.selected.foreground : buttonColors.unselected.foreground;
 
@@ -72,8 +61,27 @@ class GroupContainer extends Component {
         }
 
         console.log(`Press new group ${groupId}`);
+
+        if (this.props.ActiveSelection !== undefined && this.props.ActiveSelection.ItemId !== 0) {
+            Alert.alert(
+                'Warning',
+                'Selecting a new group will erase your unsaved selection. Ok to proceed?',
+                [
+                    {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+                    {text: 'OK', onPress: (() => {
+                        this.props.setSelectedGroup(groupId)
+                    }).bind(this)},
+                ],
+                { cancelable: false }
+            );
+
+            return;
+        }
+
         this.props.setSelectedGroup(groupId);
     };
+
+
 
     constructor(props) {
         super(props);
