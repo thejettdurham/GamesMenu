@@ -6,28 +6,64 @@ import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
 import { View, StyleSheet, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Branding from '../branding';
 
 const buttonColors = {
-    disabled: {
-        background: "#ffffff",
-        foreground:"#aaa",
-        underlay: "#fff",
-    },
-    enabled: {
-        background: "#aec8d8",
-        foreground:"#226099",
-        underlay: "#fff",
-    },
+    disabled: Branding.buttons.disabled,
+    enabled: Branding.buttons.alpha,
 };
 
-// TODO need dynamic behavior for nav buttons
-export default class ItemContainer extends Component {
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ActionCreators, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+        ButtonIsEnabled: state.present.NavContainer.ButtonIsEnabled,
+    };
+}
+
+class ItemContainer extends Component {
+    navButtonDynamicStyle = (buttonType: string): any => {
+        return {
+            backgroundColor: this.props.ButtonIsEnabled[buttonType] ? buttonColors.enabled.background : buttonColors.disabled.background,
+        }
+    };
+
+    navIconDynamicStyle = (buttonType: string): any => {
+        return {
+            color: this.props.ButtonIsEnabled[buttonType] ? buttonColors.enabled.foreground : buttonColors.disabled.foreground,
+        }
+    };
+
+    navUnderlayDynamicStyle = (buttonType: string): any => {
+        return this.props.ButtonIsEnabled[buttonType] ? buttonColors.enabled.underlay : buttonColors.disabled.underlay;
+    };
+
     undoPress() {
-        console.log("Pressed undo");
+        if (!this.props.ButtonIsEnabled['Undo']) {
+            console.log("Pressed undo while button disabled");
+            return;
+        }
+
+        this.props.undo();
     }
 
     acceptPress() {
-        console.log("Pressed accept");
+        if (!this.props.ButtonIsEnabled['Accept']) {
+            console.log("Pressed accept while button disabled");
+            return;
+        }
+
+        this.props.confirmSelection();
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.navButtonDynamicStyle = this.navButtonDynamicStyle.bind(this);
+        this.navIconDynamicStyle = this.navIconDynamicStyle.bind(this);
+        this.navUnderlayDynamicStyle = this.navUnderlayDynamicStyle.bind(this);
     }
 
     render() {
@@ -35,21 +71,21 @@ export default class ItemContainer extends Component {
             <View style={styles.navContainer}>
                 <View>
                     <TouchableHighlight
-                        style={styles.navButton}
-                        onPress={this.undoPress}
-                        underlayColor={buttonColors.disabled.underlay}
+                        style={[styles.navButtonBase, this.navButtonDynamicStyle('Undo')]}
+                        onPress={this.undoPress.bind(this)}
+                        underlayColor={this.navUnderlayDynamicStyle('Undo')}
                     >
-                        <Icon style={styles.navIcon} name="undo" />
+                        <Icon style={[styles.navIconBase, this.navIconDynamicStyle('Undo')]} name="undo" />
                     </TouchableHighlight>
                 </View>
 
                 <View>
                     <TouchableHighlight
-                        style={styles.navButton}
-                        onPress={this.acceptPress}
-                        underlayColor={buttonColors.disabled.underlay}
+                        style={[styles.navButtonBase, this.navButtonDynamicStyle('Accept')]}
+                        onPress={this.acceptPress.bind(this)}
+                        underlayColor={this.navUnderlayDynamicStyle('Accept')}
                     >
-                        <Icon style={styles.navIcon} name="check" />
+                        <Icon style={[styles.navIconBase, this.navIconDynamicStyle('Accept')]} name="check" />
                     </TouchableHighlight>
                 </View>
             </View>
@@ -65,7 +101,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-    navButton: {
+    navButtonBase: {
         flex: 1,
         justifyContent: 'center',
         alignContent: 'center',
@@ -74,10 +110,12 @@ const styles = StyleSheet.create({
         height: 40,
         width: 40,
     },
-    navIcon: {
+    navIconBase: {
         fontSize: 16,
         color: buttonColors.disabled.foreground,
         alignSelf: "center"
     }
 
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer);

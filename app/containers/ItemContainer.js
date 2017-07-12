@@ -6,7 +6,15 @@ import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
 import { View,Text } from 'react-native';
 
-export default class ItemContainer extends Component {
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ActionCreators, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {};
+}
+
+class ItemContainer extends Component {
     render() {
         return(
             <View>
@@ -15,3 +23,5 @@ export default class ItemContainer extends Component {
         );
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemContainer);

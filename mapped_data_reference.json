@@ -1,0 +1,138 @@
+// This is simply a reference of the mapped input data for development purposes.
+
+{
+  "rawById": {
+    "101": {
+      "id": 101,
+      "checkDesc": "Board Games",
+      "basePrice": 0,
+      "modifierType": "NONE",
+      "salesMode": "BUTTON_ONLY"
+    },
+    "102": {
+      "id": 102,
+      "checkDesc": "Miniature Games",
+      "basePrice": 0,
+      "modifierType": "NONE",
+      "salesMode": "BUTTON_ONLY"
+    },
+    "201": {
+      "id": 201,
+      "checkDesc": "Dark Souls",
+      "basePrice": 99.99,
+      "modifierType": "NONE",
+      "salesMode": "NORMAL"
+    },
+    "202": {
+      "id": 202,
+      "checkDesc": "Monopoly",
+      "basePrice": 29.99,
+      "modifierType": "NONE",
+      "salesMode": "NORMAL"
+    },
+    "203": {
+      "id": 203,
+      "checkDesc": "X-Wing Core",
+      "basePrice": 39.99,
+      "modifierType": "NONE",
+      "salesMode": "NORMAL"
+    },
+    "204": {
+      "id": 204,
+      "checkDesc": "Warhammer 40K",
+      "basePrice": 139.99,
+      "modifierType": "NONE",
+      "salesMode": "NORMAL"
+    },
+    "301": {
+      "id": 301,
+      "checkDesc": "Dark Souls Mod",
+      "basePrice": 0,
+      "modifierType": "OPTIONAL",
+      "salesMode": "MODIFIER_GROUP"
+    },
+    "302": {
+      "id": 302,
+      "checkDesc": "Monopoly Mod",
+      "basePrice": 0,
+      "modifierType": "OPTIONAL",
+      "salesMode": "MODIFIER_GROUP"
+    },
+    "303": {
+      "id": 303,
+      "checkDesc": "Warhammer 40K Mod",
+      "basePrice": 0,
+      "modifierType": "OPTIONAL",
+      "salesMode": "MODIFIER_GROUP"
+    },
+    "401": {
+      "id": 401,
+      "checkDesc": "Painted Miniatures",
+      "basePrice": 20,
+      "modifierType": "TERMINAL",
+      "salesMode": "MODIFIER"
+    },
+    "402": {
+      "id": 402,
+      "checkDesc": "Metal Pawns",
+      "basePrice": 0,
+      "modifierType": "TERMINAL",
+      "salesMode": "MODIFIER"
+    },
+    "403": {
+      "id": 403,
+      "checkDesc": "Wooden Property",
+      "basePrice": 0,
+      "modifierType": "TERMINAL",
+      "salesMode": "MODIFIER"
+    },
+    "405": {
+      "id": 405,
+      "checkDesc": "Marbel Dice",
+      "basePrice": 0,
+      "modifierType": "TERMINAL",
+      "salesMode": "MODIFIER"
+    },
+    "406": {
+      "id": 406,
+      "checkDesc": "Measuring Tape",
+      "basePrice": 0,
+      "modifierType": "TERMINAL",
+      "salesMode": "MODIFIER"
+    }
+  },
+  "groupIds": [
+    101,
+    102
+  ],
+  "childrenById": {
+    "101": [
+      201,
+      202
+    ],
+    "102": [
+      203,
+      204
+    ],
+    "201": [
+      301
+    ],
+    "202": [
+      302
+    ],
+    "204": [
+      303
+    ],
+    "301": [
+      401
+    ],
+    "302": [
+      402,
+      403
+    ],
+    "303": [
+      405,
+      406
+    ]
+  }
+}

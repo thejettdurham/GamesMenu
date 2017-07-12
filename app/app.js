@@ -7,7 +7,8 @@ import { createStore, applyMiddleware, compose} from 'redux'
 import { createLogger } from 'redux-logger'
 import reducers from './reducers'
 import Orientation from 'react-native-orientation'
-import data from './lib/data';
+import AppState from './lib/appState'
+import undoable from 'redux-undo'
 
 //middleware that logs actions (only in Dev)
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
@@ -19,16 +20,15 @@ function configureStore(initialState) {
         ),
     );
 
-    return createStore(reducers, initialState, enhancer);
+    // Use redux-undo for easy undo behavior
+    return createStore(undoable(reducers, {limit: 10}), initialState, enhancer);
 }
 
 export default class App extends Component {
     store: any;
 
     componentWillMount() {
-        console.log(data.menuItems);
-
-        let initialState = {};
+        let initialState = new AppState();
         this.store = configureStore(initialState);
     }
 

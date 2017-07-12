@@ -4,15 +4,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
-import { View,Text, StyleSheet } from 'react-native'
+import { View,Text,StyleSheet } from 'react-native'
+import Branding from '../branding';
 import GroupContainer from './GroupContainer'
 import ItemContainer from './ItemContainer'
 import SelectionContainer from './SelectionContainer'
 import NavContainer from './NavContainer'
 
-class AppContainer extends Component {
-
-  render() {
+export default class AppContainer extends Component {
+    render() {
       return (
           <View style={styles.root}>
               <View style={styles.leftPane}>
@@ -31,7 +31,7 @@ class AppContainer extends Component {
               </View>
           </View>
       );
-  }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
     leftPane: {
         flex: 1,
-        borderRightColor: 'black',
+        borderRightColor: Branding.borders.dark,
         borderRightWidth: 1,
         padding: 10,
     },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     rightTopPane: {
         flex: 1,
-        borderBottomColor: 'black',
+        borderBottomColor: Branding.borders.dark,
         borderBottomWidth: 1,
         padding: 10,
     },
@@ -64,15 +64,3 @@ const styles = StyleSheet.create({
         padding: 10,
     }
 });
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ActionCreators, dispatch);
-}
-
-function mapStateToProps(state) {
-  return {
-    // something
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
