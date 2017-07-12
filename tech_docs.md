@@ -16,6 +16,10 @@ Create a single screen divided into left and right sections. On the left, displa
 
 **No preference but our current target is the Samsung 8".**
 
+`Is the `102` button supposed to be a child node of the `101` button, or it supposed to be a sibling?`
+
+**The gist is that Miniature and Board Games are siblings.**
+
 ## Process
 
 - Force Landscape Orientation

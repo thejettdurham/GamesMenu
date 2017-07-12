@@ -64,15 +64,3 @@ const styles = StyleSheet.create({
         padding: 10,
     }
 });
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(ActionCreators, dispatch);
-// }
-//
-// function mapStateToProps(state) {
-//   return {
-//     // something
-//   };
-// }
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
