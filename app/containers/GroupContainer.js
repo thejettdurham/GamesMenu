@@ -66,8 +66,12 @@ class GroupContainer extends Component {
     };
 
     groupButtonPress = (groupId: number): any => {
-        console.log(`Press group ${groupId}`);
+        if (this.props.SelectedGroupId === groupId) {
+            console.log(`Pressed already selected group ${groupId}`);
+            return;
+        }
 
+        console.log(`Press new group ${groupId}`);
         this.props.setSelectedGroup(groupId);
     };
 

@@ -3,13 +3,13 @@
 import data from './data'
 import _ from 'lodash'
 
-class Selection {
+export class Selection {
     GroupId: number;
     ItemId: number;
     Modifiers: Array<number>;
 
-    constructor() {
-        this.GroupId = 0;
+    constructor(groupId: number = 0) {
+        this.GroupId = groupId;
         this.ItemId = 0;
         this.Modifiers = [];
     }
