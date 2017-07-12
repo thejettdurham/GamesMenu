@@ -113,14 +113,9 @@ export default appStateReducer = (state, action) => {
                 },
                 ItemContainer: {
                     LastScreenId: state.ItemContainer.ActiveScreenId,
-                    // Items with no modifiers are handled in the view layer
                     ActiveScreenId: state.ItemContainer.LastScreenId,
                 }
             });
-
-            // Append modifierId to modifiers array of active selection
-            // Set ActiveScreenId = LastScreenId
-            // Set LastScreenId = ActiveScreenId
         }
 
         default: return state;

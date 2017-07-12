@@ -50,8 +50,6 @@ class GroupContainer extends Component {
                 return {};
             }
         }
-
-
     };
 
     groupButtonPress = (groupId: number): any => {

@@ -8,7 +8,7 @@ Before running the application, you must setup all the dependencies needed to de
 
 Once all dependencies (node, watchman, react-native-cli, and iOS/android dev tools) are installed:
 
-- Clone the repository
+- Clone the repository and `cd` to it
 - `npm install`
 - `react-native run-ios` to run in iOS
 - `react-native run-android` to run in Android (either a running simulator or a connected device)
@@ -18,8 +18,8 @@ Once all dependencies (node, watchman, react-native-cli, and iOS/android dev too
 - Select a group from the upper-right
 - Select an item below to create the active selection on the left side of the screen (between the gray lines)
 - If modifiers are available for the chosen item, they can be selected in the same area. Multiple modifiers can be added to a selection.
-- If you make a mistake in an active selection, use the undo button. Only the previous 10 actions can be undone.
-- When you're satisfied with the active selection, press the check mark to accept it. This will add an entry in the area below the gray lines for the confirmed selection, and reset the right side of the screen for another selection to be made.
+- If you make a mistake while making a selection, use the undo button in the lower left of the bottom right pane. Only the previous 10 actions can be undone.
+- When you're satisfied with the active selection, press the check mark to accept it. This will move the active selection to the area below the gray lines, and reset the right side of the screen for another selection to be made.
 - Confirmed selection items can be deleted by long-pressing the item to be deleted. You will be asked to confirm your choice.
 - New groups can be selected at any time, but if there is an active selection shown on the left it will be erased. in this case, you will be asked to confirm your choice.
 
