@@ -38,6 +38,7 @@ export default class AppState {
     };
 
     ItemContainer: {
+        LastScreenId?: number,
         ActiveScreenId?: number
     };
 
