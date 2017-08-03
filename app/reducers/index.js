@@ -2,6 +2,31 @@ import { Selection, } from '../lib/appState';
 import { Alert } from 'react-native';
 import * as types from '../actions/types';
 
+function createConfirmedSelection(ActiveSelection, data) {
+    let group = data.rawById[ActiveSelection.GroupId];
+    let item = data.rawById[ActiveSelection.ItemId];
+    let totalPrice = item.basePrice;
+
+    let modifiers = ActiveSelection.Modifiers.reduce((agg, modifierId) => {
+        let modifier = data.rawById[modifierId];
+
+        totalPrice += modifier.basePrice;
+
+        return agg.concat({
+            Name: modifier.checkDesc,
+            Price: modifier.basePrice
+        })
+    }, []);
+
+    return {
+        GroupName: group.checkDesc,
+        ItemName: item.checkDesc,
+        ItemPrice: item.basePrice,
+        Modifiers: modifiers,
+        TotalPrice: totalPrice,
+    }
+}
+
 export default appStateReducer = (state, action) => {
     console.log("Reducer entry");
 
@@ -9,6 +34,10 @@ export default appStateReducer = (state, action) => {
         case types.CONFIRM_SELECTION: {
             let newConfirmedSelections = [];
             let lastConfirmedSelections = state.SelectionContainer.ConfirmedSelections;
+
+            // TODO Add this confirmed selection to state rather than the active selection
+            let confirmedSelection = createConfirmedSelection(state.SelectionContainer.ActiveSelection, state.Data);
+            console.log(confirmedSelection);
 
             if (lastConfirmedSelections !== undefined && lastConfirmedSelections.length > 0) {
                 newConfirmedSelections= [
