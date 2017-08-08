@@ -92,5 +92,5 @@ function mapInputDataToState(data: any): MappedData {
     };
 
     data.menuItems.forEach(x => rawMapper(x));
-    return mapped;
+    return mapped;t
 }
