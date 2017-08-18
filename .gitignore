@@ -55,3 +55,4 @@ fastlane/screenshots
 # Calabash iOS
 #
 ios/calabash.framework/
+.irb-history

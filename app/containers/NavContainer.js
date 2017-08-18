@@ -83,6 +83,7 @@ class ItemContainer extends Component {
             <View style={styles.navContainer}>
                 <View>
                     <TouchableHighlight
+                        accessibilityLabel="btn_undo"
                         style={[styles.navButtonBase, this.navButtonDynamicStyle('Undo')]}
                         onPress={this.undoPress.bind(this)}
                         underlayColor={this.navUnderlayDynamicStyle('Undo')}
@@ -93,6 +94,7 @@ class ItemContainer extends Component {
 
                 <View>
                     <TouchableHighlight
+                        accessibilityLabel="btn_accept"
                         style={[styles.navButtonBase, this.navButtonDynamicStyle('Accept')]}
                         onPress={this.acceptPress.bind(this)}
                         underlayColor={this.navUnderlayDynamicStyle('Accept')}

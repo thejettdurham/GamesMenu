@@ -14,18 +14,18 @@ import NavContainer from './NavContainer'
 export default class AppContainer extends Component {
     render() {
       return (
-          <View style={styles.root}>
-              <View style={styles.leftPane}>
-                  <SelectionContainer style={styles.leftPane}/>
+          <View style={styles.root} accessibilityLabel="ctr_app-root">
+              <View style={styles.leftPane} accessibilityLabel="ctr_left-pane">
+                  <SelectionContainer style={styles.leftPane} />
               </View>
-              <View style={styles.rightPane}>
-                  <View style={styles.rightTopPane}>
-                      <GroupContainer />
+              <View style={styles.rightPane} accessibilityLabel="ctr_right-pane">
+                  <View style={styles.rightTopPane} accessibilityLabel="ctr_right-top-pane">
+                      <GroupContainer accessibilityLabel="ctr_groups"/>
                   </View>
-                  <View style={styles.rightMiddlePane}>
-                      <ItemContainer />
+                  <View style={styles.rightMiddlePane} accessibilityLabel="ctr_right-middle-pane">
+                      <ItemContainer  />
                   </View>
-                  <View style={styles.rightBottomPane}>
+                  <View style={styles.rightBottomPane} accessibilityLabel="ctr_right-bottom-pane">
                       <NavContainer />
                   </View>
               </View>

@@ -21,7 +21,7 @@ function mapStateToProps(state) {
 }
 
 class SelectionContainer extends Component {
-    renderSelectionText = (selection: Selection)  => {
+    renderSelectionText = (selection: Selection, index: number)  => {
         let selectionGroup = selection.GroupId !== undefined ? this.props.Data.rawById[selection.GroupId] : undefined;
         let selectionItem = selection.ItemId !== undefined ? this.props.Data.rawById[selection.ItemId] : undefined;
 
@@ -40,7 +40,7 @@ class SelectionContainer extends Component {
         }
 
         return (
-            <View>
+            <View accessibilityLabel={`ctr_confirmed-selection-${index}`}>
                 <Text style={{fontWeight: 'bold'}}>{selectionGroup.checkDesc}</Text>
                 <Text>{selectionItem.checkDesc} - ${selectionItem.basePrice}</Text>
                 {selectionModifiers !== undefined
@@ -75,24 +75,25 @@ class SelectionContainer extends Component {
     render() {
         console.log("Render SelectionContainer");
         return(
-            <View style={styles.containerWrap}>
+            <View style={styles.containerWrap} accessibilityLabel="ctr_selection">
                 <Text style={styles.titleHeader}>Selections</Text>
-                <View style={styles.activeSelectionWrap}>{
+                <View style={styles.activeSelectionWrap} accessibilityLabel="ctr_active-selections">{
                     this.props.ActiveSelection !== undefined && this.props.ActiveSelection.ItemId !== 0
-                        ? this.renderSelectionText(this.props.ActiveSelection)
+                        ? this.renderSelectionText(this.props.ActiveSelection, 0)
                         : null
                 }</View>
-                <ScrollView style={styles.confirmedSelectionsWrap}>{
+                <ScrollView style={styles.confirmedSelectionsWrap} accessibilityLabel="ctr_confirmed-selections">{
                     this.props.ConfirmedSelections !== undefined && this.props.ConfirmedSelections.length > 0
                         ? this.props.ConfirmedSelections.map((sel, idx) => {
                             return(
                                 <TouchableHighlight
                                     key={idx}
+                                    accessibilityLabel={`btn_confirmed-selection-${idx}`}
                                     style={styles.confirmedSelection}
                                     underlayColor='rgba(168, 46, 46, 0.3)'
                                     onLongPress={() => this.deleteSelection(idx)}
                                 >
-                                    {this.renderSelectionText(sel)}
+                                    {this.renderSelectionText(sel, idx)}
                                 </TouchableHighlight>
                             );
                         })
